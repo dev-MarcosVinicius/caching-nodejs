@@ -1,0 +1,4 @@
+# Dependency directories
+node_modules/
+.docker/
+package-lock.json

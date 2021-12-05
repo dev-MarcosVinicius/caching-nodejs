@@ -1,0 +1,38 @@
+version: '3'
+services:
+  mongo-db:
+    container_name: mongo-db
+    image: mongo
+    restart: always
+    volumes:
+      - ./.docker/mongodb/dbdata:/data/db
+      - ./.docker/mongodb/configdb:/data/configdb
+    ports:
+      - 27017:27017
+    networks:
+      - cached-node
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - cached-node
+
+  cache-nodejs:
+    container_name: cache-nodejs
+    build: .
+    ports:
+      - 3000:3000
+      - 4000:4000
+    depends_on:
+      - mongo-db
+      - redis
+    networks:
+      - cached-node
+
+networks:
+  cached-node:
+    driver: bridge

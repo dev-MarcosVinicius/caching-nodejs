@@ -1,0 +1,26 @@
+{
+  "name": "cached-response-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start-factory\" \"npm run cached\" \"npm run nocached\"",
+    "start-factory": "node src/factory.js",
+    "nocached": "node src/nocached/index-nocache.js",
+    "cached": "node src/cached/index-cached.js",
+    "loadtest:cached": "npx autocannon -c 100 -d 10 localhost:3000 --renderStatusCodes",
+    "loadtest:nocached": "npx autocannon -c 100 -d 10 localhost:4000 --renderStatusCodes"
+  },
+  "keywords": [],
+  "author": "dev-marcosvinicius",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^6.4.0",
+    "faker": "^5.5.3",
+    "mongodb": "^4.2.1",
+    "redis": "^4.0.0"
+  },
+  "devDependencies": {
+    "autocannon": "^7.5.0"
+  }
+}
